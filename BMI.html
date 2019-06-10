@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BMI calculater</title>
+    <script type="text/javascript">
+      function calc(){
+        var w = document.getElementById("weight").value;
+        var h = document.getElementById("height").value;
+        var r = w / (h*h);  //BMI指数　＝　体重(kg)/身長(m)の二乗
+        document.getElementById("result").textContent = "あなたの BMI" + r + "です";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>BMIの計算</h1>
+    体重(kg)：<input id="weight"/><br/>
+    身長(m) ：<input id="height"/><br/>
+    計算    ：<button onclick="calc()">計算</button>
+    <p id="result" style="color:blue"></p>
+  </body>
+</html>
