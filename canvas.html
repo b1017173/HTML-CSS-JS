@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>canvasについて学んでいくぞい</title>
+    <script>
+      var ctx;//コンテキストを取得する変数をグローバル変数で取得するのがべたー
+      var ctx2;//canvas2用
+      function init(){
+        //canvas
+        var canvas = document.getElementById("canvas");
+        /*↑<canvas>で宣言されているのidを
+        取得してきていることがcanvasを利用するトリガー*/
+        ctx = canvas.getContext("2d");//コンテキストの取得
+        ctx.strokeStyle = "#FF0000";
+        ctx.fillStyle = "#00FF00";
+        ctx.lineWidth = 10;
+        ctx.lineCap = "square";//線の終端の形状"butt","square","round"
+        ctx.shadowColor = "#000000";
+        ctx.shadowBlur = 20;//陰に適用するぼかす範囲
+
+        //線を引く
+        ctx.beginPath();//パスをクリア
+        ctx.moveTo(100, 100);//起点
+        ctx.lineTo(300, 150);//300,150にパス(そこまで軌跡を作る)
+        ctx.lineTo(300, 50);//300,50にパス
+        ctx.closePath();//線画を閉じる(起点へ軌跡を作る)
+        ctx.stroke();//軌跡を描写
+
+        //矩形を描く
+        ctx.fillRect(100, 200, 200, 100);//矩形に塗りつぶす(x座標,y座標,width,height)
+        ctx.strokeRect(100, 200, 200, 100);//矩形の線を描写(x座標,y座標,width,height)
+        ctx.clearRect(150, 225, 100, 75);//矩形の範囲の描写を消去
+
+        //canvas2
+        var canvas2 = document.getElementById("canvas2");
+        ctx2 = canvas2.getContext("2d");
+        ctx2.strokeStyle = "#0000FF";
+        ctx2.fillStyle = "#00FFFF";
+        ctx2.lineWidth = 5;
+
+        //円形を描く
+        ctx2.beginPath();
+        ctx2.arc(100, 50, 30, 0, 2*Math.PI);//円形の軌跡を作る(中心のx座標,y座標,半径,開始角度,終点角度,true or falseでtrueなら反時計回り)
+        ctx2.closePath();
+        ctx2.fill();
+
+        ctx2.beginPath();
+        ctx2.moveTo(300, 50);
+        ctx2.arc(300, 50, 30, 0, Math.PI/3, true);
+        ctx2.closePath();
+        ctx2.stroke();
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <!--↑canvasの宣言と描画できる大きさの設定-->
+    <canvas id="canvas2" width="900" height="400"></canvas>
+  </body>
+</html>
