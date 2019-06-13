@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>〇×ゲーム</title>
+    <style>
+      .cell{
+        width:100px;
+        height:100px;
+        font-size:60pt;
+        text-align:center;
+      }
+    </style>
+    <script type="text/javascript">
+      var count = 0;
+      function clickMe(panel){
+        if(count++ % 2 == 0){
+          panel.textContent="〇";
+        }else{
+          panel.textContent="×";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+      </tr>
+      <tr>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+      </tr>
+      <tr>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+        <td class="cell" onclick="clickMe(this);"> </td>
+      </tr>
+    </table>
+  </body>
+</html>
