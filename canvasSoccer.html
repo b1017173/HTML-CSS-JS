@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>canvasでサッカー場を書いてみる</title>
+    <script type="text/javascript">
+      var ctx;
+
+      function init() {
+        var canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#333333";
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 5;
+
+        ctx.beginPath();
+        ctx.fillRect(0, 0, 600, 300);
+
+        ctx.strokeRect(0, 0, 600, 300);
+        ctx.strokeRect(0, 100, 50, 100);
+        ctx.strokeRect(canvas.width-50, 100, 50, 100);
+
+        ctx.moveTo(canvas.width/2, 0);
+        ctx.lineTo(canvas.width/2, canvas.height);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(canvas.width/2, canvas.height/2, 50, 0, 2*Math.PI);
+        ctx.stroke();
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas" width="600" height="300"></canvas>
+  </body>
+</html>
