@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang=ja>
+  <head>
+    <meta charset="utf-8">
+    <title>packman</title>
+    <script>
+      var ctx;
+
+      function init(){
+        var canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = "yellow";
+        ctx.moveTo(width/2, height/2);
+        ctx.arc(width/2, height/2, 50, Math.PI/4, Math.PI*7 /4);
+        ctx.fill();
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </body>
+</html>
