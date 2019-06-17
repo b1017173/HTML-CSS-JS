@@ -5,6 +5,9 @@
     <title>packman</title>
     <script>
       var ctx;
+      var isOpen = true;
+      var stPack;
+      var enPack;
 
       function init(){
         var canvas = document.getElementById("canvas");
@@ -16,7 +19,14 @@
 
         ctx.fillStyle = "yellow";
         ctx.moveTo(width/2, height/2);
-        ctx.arc(width/2, height/2, 50, Math.PI/4, Math.PI*7 /4);
+        if (isOpen) {
+          stPack = Math.PI/4;
+          enPack = Math.PI*7 /4;
+        }else{
+          stPack = 0;
+          enPack = Math.PI * 2;
+        }
+        ctx.arc(width/2, height/2, 50, stPack, enPack);
         ctx.fill();
       }
     </script>
