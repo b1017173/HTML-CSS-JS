@@ -12,12 +12,17 @@
       function init(){
         var canvas = document.getElementById("canvas");
         ctx = canvas.getContext("2d");
+        setInterval(tick, 200);
+      }
+
+      function paint(){
         var width = canvas.width;
         var height = canvas.height;
+
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, width, height);
-
         ctx.fillStyle = "yellow";
+        ctx.beginPath();
         ctx.moveTo(width/2, height/2);
         if (isOpen) {
           stPack = Math.PI/4;
@@ -28,6 +33,11 @@
         }
         ctx.arc(width/2, height/2, 50, stPack, enPack);
         ctx.fill();
+      }
+
+      function tick() {
+        isOpen = !isOpen;
+        paint();
       }
     </script>
   </head>
