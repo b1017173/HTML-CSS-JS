@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>image練習</title>
+    <script>
+      var ctx;
+      function init(){
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var ship = document.getElementById("ship");
+        ctx.drawImage(ship, 10, 10);//drawImage(img, dx, dy)
+        ctx.drawImage(ship, 10, 100, 100, 100);//(img, dx, dy, dw, dh)
+        ctx.drawImage(ship, 10, 10, 30, 30, 150, 20, 50, 50);//(img, sx, sy, sw, sh, dx, dy, dw, dh)
+      }
+    </script>
+  </head>
+  <body onload = "init()">
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <img id="ship" src="C:\Users\micad\Documents\勉強資料\HTML_CSS_JS\JavaScript-for-Students-Sample\Canvas\ship.png" style="display:none"/>
+  </body>
+</html>
