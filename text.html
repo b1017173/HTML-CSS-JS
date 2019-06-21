@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>text練習</title>
+    <script>
+      var ctx;
+      function init(){
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "32px 'MS ゴシック'";
+
+        ctx.strokeStyle = "blue";
+        ctx.strokeText("ふぅふぅ↑", 10, 50, canvas.width);
+
+        ctx.fillStyle = "green";
+        ctx.fillText("いぇーい！", 10, 100, canvas.width);
+      }
+    </script>
+  </head>
+  <body onload = "init()">
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </body>
+</html>
