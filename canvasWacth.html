@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>アナログ時計</title>
+    <script>
+      var ctx;
+      function init() {
+        var canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        ctx.translate(100, 100);//原点移動
+        setInterval(timer, 1000); //一秒ごとに時計針を更新
+      }
+
+      function paint() {
+        ctx.fillStyle = "black";
+
+        for(var i=0;i<60;i++){ //文字盤描写
+          ctx.save();
+          ctx.rotate(Math.PI/30 * i);
+
+          ctx.beginPath();
+          if(i%5 == 0) {  //12本太いやつ
+            ctx.lineWidth = 3;
+            ctx.moveTo(0, -65);
+          } else {  //その間の細いやつ
+            ctx.lineWidth = 1;
+            ctx.moveTo(0, -60);
+          }
+          ctx.lineTo(0, -50);
+          ctx.stroke();
+
+          ctx.restore();
+        }
+      }
+
+      function timer() {
+        ctx.clearRect(-100, -100, 300, 300);
+        var now = new Date();
+        paint();
+
+        seconds(now);  //秒針
+        minutes(now);  //短針
+        hours(now);  //長針
+      }
+
+      function seconds(now) {
+        var seconds = now.getSeconds();
+        ctx.lineWidth = 1;
+        ctx.save();
+        ctx.rotate(Math.PI/30 * seconds);
+        ctx.beginPath();
+
+        ctx.moveTo(0, -60);
+        ctx.lineTo(0, 0);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      function minutes(now) {
+        var minutes = now.getMinutes();
+        ctx.lineWidth = 2;
+        ctx.save();
+        ctx.rotate(Math.PI/30 * minutes);
+        ctx.beginPath();
+
+        ctx.moveTo(0, -55);
+        ctx.lineTo(0, 0);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      function hours(now) {
+        var hours = now.getHours();
+        ctx.lineWidth = 3;
+        ctx.save();
+        ctx.rotate(Math.PI/6 * hours);
+        ctx.beginPath();
+
+        ctx.moveTo(0, -45);
+        ctx.lineTo(0, 0);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </body>
+</html>
