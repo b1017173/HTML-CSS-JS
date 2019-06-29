@@ -20,14 +20,14 @@
 
       //初期化関数
       function init() {
-        var canvas = document.getElementById("canvas");
-        ctx = canvas.getContext("2d");
+        var canvas = document.getElementById("field");
         W = canvas.width / S;
-        H = canvas.heigth / S;
+        H = canvas.height / S;
+        ctx = canvas.getContext("2d");
         ctx.font = "20px sans-serif";
 
         //蛇の初期化
-        snake.push(new Point(W/2, H/2));
+        snake.push(new Point(W / 2, H / 2));
 
         //餌の初期化
         for (var i=0;i<10;i++) {
@@ -63,6 +63,7 @@
         return false;
       }
 
+      //餌を食べたときに新しい餌を用意する
       function moveFood(x, y) {
         foods = foods.filter(function (p) {
           return (p.x != x || p.y != y);
@@ -79,11 +80,11 @@
           case 38: y--; break; //上
           case 39: x++; break; //右
           case 40: y++; break; //下
-          default: paint(); return; //座標を更新したのを反映
+          default: paint(); return;
         }
 
         //自分 or 壁に衝突したか判定
-        if(isHit(snake, x, y) || x<0 || x>=W || y<0 || y>=H) {
+        if (isHit(snake, x, y) || x<0 || x>=W || y<0 || y>=H) {
           clearInterval(timer);
           paint();
           return;
@@ -122,6 +123,6 @@
   </head>
 
   <body onload="init()">
-    <canvas id="canvas" width="400" height="400" style="background:#cccccc"></canvas>
+    <canvas id="field" width="400" height="400" style="background:#cccccc"></canvas>
   </body>
 </html>
