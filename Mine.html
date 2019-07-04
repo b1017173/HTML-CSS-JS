@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mine Land</title>
+    <style type="text/css">
+      td.cell {width:20px;height:20px; background-color:Gray;}
+      td.open {background-color:White;}
+    </style>
+    <script type="text/javascript">
+      "use strict";
+      var W = 10, H = 10, BOMB = 10, cell = [], opened = 0;
+
+      function init() {
+        var main = document.getElementById("main");
+
+        for (var i = 0; i < H; i++) {
+          cell[i] = [];
+          var tr = document.createElement("tr");
+          for (var j = 0; j < W; j++) {
+            var td = document.createElement("td");
+            td.addEventListener("click", click);
+            td.className = "cell";
+            td.y = i;
+            td.x = j;
+            cell[i][j] = td;
+            tr.appendChild(td);
+          }
+          main.apendChild(tr);
+        }
+
+        for (var i = 0; i < BOMB; i++) {
+          while (true) {
+            var x = Math.floor(Math.random() * W);
+            var y = Math.floor(Math.random() * H);
+            if (!cell[x][y].bomb) {
+              cell[x][y].bomb = true;
+              //cell[x][y].textContent = "*";
+              break;
+            }
+          }
+        }
+      }
+
+      function count(x, y) {
+        var b = 0;
+        for (var j = y - 1; j <= x + 1; j++) {
+          for (var i = x - 1; i <= x + 1; i++) {
+            if (cell[j] && cell[j][i]) {
+              if (cell[j][i].bomb) b++;
+            }
+          }
+        }
+        return b;
+      }
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
