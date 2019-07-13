@@ -9,53 +9,105 @@
     </style>
     <script type="text/javascript">
       "use strict";
+      /*W:width, H:height*/
       var W = 10, H = 10, BOMB = 10, cell = [], opened = 0;
 
       function init() {
-        var main = document.getElementById("main");
+        var main = document.getElementById("main");//table取得
 
+        /*マスつくる*/
         for (var i = 0; i < H; i++) {
           cell[i] = [];
-          var tr = document.createElement("tr");
+          var tr = document.createElement("tr");//1
           for (var j = 0; j < W; j++) {
-            var td = document.createElement("td");
-            td.addEventListener("click", click);
+            var td = document.createElement("td");//2
+            td.addEventListener("click", click);//クリックしたときのイベント追加
             td.className = "cell";
+            //クリックされた時のx,y座標を保持
             td.y = i;
             td.x = j;
-            cell[i][j] = td;
-            tr.appendChild(td);
+            cell[i][j] = td;//マス生成
+            tr.appendChild(td);//2で生成したところに行追加
           }
-          main.apendChild(tr);
+          main.appendChild(tr);//1で生成したところに列追加
         }
 
+        /*爆弾配置*/
         for (var i = 0; i < BOMB; i++) {
           while (true) {
+            /*かぶらないようにする*/
             var x = Math.floor(Math.random() * W);
             var y = Math.floor(Math.random() * H);
-            if (!cell[x][y].bomb) {
+            if (!cell[x][y].bomb) {//そこに爆弾がなかったら
               cell[x][y].bomb = true;
-              //cell[x][y].textContent = "*";
+              cell[x][y].textContent = "*";
               break;
             }
           }
         }
       }
 
+      /*座標の周囲の爆弾の数を数える*/
       function count(x, y) {
         var b = 0;
-        for (var j = y - 1; j <= x + 1; j++) {
-          for (var i = x - 1; i <= x + 1; i++) {
-            if (cell[j] && cell[j][i]) {
+        for (var j = y - 1; j <= y + 1; j++) {//縦
+          for (var i = x - 1; i <= x + 1; i++) {//横
+            if (cell[j] && cell[j][i]) {//マス目の外を数えないようにする(要素があればtrueになる)
               if (cell[j][i].bomb) b++;
             }
           }
         }
         return b;
       }
-    </script>
-  </head>
-  <body>
 
+      /*開けるとき*/
+      function open(x, y) {
+        for (var j = y - 1; j <= y + 1; j++) {
+          for (var i = x - 1; i <= x + 1; i++) {
+            if (cell[j] && cell[j][i]) {
+              var c = cell[j][i];
+              if (c.opened || c.bomb) {
+                continue;
+              }
+              flip(c);
+              var n = count(i, j);
+              if (n == 0) {
+                open(i, j);
+              } else {
+                c.textContent = n;
+              }
+            }
+          }
+        }
+      }
+
+      function flip(cell) {
+        cell.className = "cell open";
+        cell.opened = true;
+        if (++opened >= (W * H - BOMB)) {
+          document.getElementById("title").textContent = "Good Job!";
+        }
+      }
+
+      function click(e) {
+        var src = e.currentTarget;
+        if (src.bomb) {
+          cell.forEach(function (tr) {
+            tr.forEach(function (td) {
+              if (td.bomb) {
+                td.textContent = "+";
+              }
+            })
+          });
+          document.getElementById("title").textContent = "Game Over";
+        } else {
+          open(src.x, src.y);
+        }
+      }
+      </script>
+  </head>
+  <body onload="init()">
+      <h1 id="title">Mine Land</h1>
+      <table id="main" border="1"></table>
   </body>
 </html>
